@@ -8,6 +8,7 @@ class TodoDetail extends StatefulWidget {
 class _TodoDetailState extends State<TodoDetail> {
   ///入力したデータをテキストとしてもつ。
   String _text = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

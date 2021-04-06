@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/nomal/nomal_page.dart';
 
 
@@ -7,27 +8,60 @@ class NomalScreen extends StatefulWidget {
   _NomalScreenState createState() => _NomalScreenState();
 }
 
+
 class _NomalScreenState extends State<NomalScreen> {
-  List<String> todoList = [];
-  List<String> _wordList = [
-    "やめときな！正義だ悪だと口にするには！この世のどこを探しても答えはねぇだろ！くだらねぇ！",
-    "笑われていこうじゃねぇか。高みを目指せば出す拳の見つからねぇケンカもあるもんだ！",
-    "",
-  ];
+  List<String> _todoList = [];
+
+  void _incrementCounter() async {
+    setState(() {
+      _setStringList2();  // Shared Preferenceに値を保存する。
+    });
+  }
+
+  void _setStringList2() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setStringList('word', _todoList);
+  }
+
+
+  void _getStringList2() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      _todoList = pref.getStringList('word') ?? [];
+    });
+  }
+  // Shared Preferenceのデータを削除する
+  _remove2() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      pref.remove('word');
+      _setStringList2();
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _getStringList2();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // データを元にListViewを作成
       body: ListView.builder(
-        itemCount: todoList.length,
+        itemCount: _todoList.length,
         itemBuilder: (context, index) {
-          final todo = todoList[index];
+          final todo = _todoList[index];
           ///削除
           return Dismissible(
               key: Key(todo),
               onDismissed: (direction) {
                 setState(() {
-                  todoList.removeAt(index);
+                  _remove2();
+                  _todoList.removeAt(index);
                 });
               },
               background: Container(
@@ -35,7 +69,7 @@ class _NomalScreenState extends State<NomalScreen> {
               ),
               child: Card(
                 child: ListTile(
-                  title: Text(todoList[index]),
+                  title: Text(_todoList[index]),
                 ),
               ),
           );
@@ -56,7 +90,8 @@ class _NomalScreenState extends State<NomalScreen> {
             if (newListText != null) {
               setState(() {
                 // リスト追加
-                todoList.add(newListText);
+                _todoList.add(newListText);
+                _incrementCounter();
               });
             }
           },

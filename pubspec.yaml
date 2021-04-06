@@ -21,6 +21,8 @@ dependencies:
   random_string: ^2.1.0
   flutter_launcher_icons: ^0.7.5
   carousel_slider: ^3.0.0
+  shared_preferences: ^0.5.8
+  json_serializable: ^3.5.0
 
 dev_dependencies:
   flutter_test:

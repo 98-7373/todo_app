@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/todo/todo_detail.dart';
 
 class TodoPage extends StatefulWidget {
@@ -9,6 +10,38 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   // Todoリストのデータ
   List<String> todoList = [];
+
+  void _increment() async {
+    setState(() {
+      _setStringList(); // Shared Preferenceに値を保存する。
+    });
+  }
+
+  void _setStringList() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setStringList('todo', todoList);
+  }
+
+  void _getStringList() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      todoList = pref.getStringList('todo') ?? [];
+    });
+  }
+
+  // Shared Preferenceのデータを削除する
+   _remove() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      pref.remove('todo');
+      _setStringList();
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    _getStringList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +56,7 @@ class _TodoPageState extends State<TodoPage> {
               key: Key(todo),
               onDismissed: (direction) {
                 setState(() {
+                  _remove();
                   todoList.removeAt(index);
                 });
               },
@@ -36,6 +70,7 @@ class _TodoPageState extends State<TodoPage> {
               ));
         },
       ),
+
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 80),
         child: FloatingActionButton(
@@ -50,8 +85,8 @@ class _TodoPageState extends State<TodoPage> {
             );
             if (newListText != null) {
               setState(() {
-                // リスト追加
                 todoList.add(newListText);
+                _increment();
               });
             }
           },
