@@ -26,6 +26,9 @@ class _NomalPageState extends State<NomalPage> {
               style: TextStyle(color: Colors.blue),
             ),
             TextField(
+              decoration: InputDecoration(
+                hintText: "格言を追加"
+              ),
               onChanged: (String value) {
                 setState(() {
                   _text1 = value;

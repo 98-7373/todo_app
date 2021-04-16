@@ -23,6 +23,7 @@ dependencies:
   carousel_slider: ^3.0.0
   shared_preferences: ^0.5.8
   json_serializable: ^3.5.0
+  introduction_screen: ^1.0.7
 
 dev_dependencies:
   flutter_test:

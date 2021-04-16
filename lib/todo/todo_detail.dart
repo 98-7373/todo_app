@@ -26,6 +26,9 @@ class _TodoDetailState extends State<TodoDetail> {
               style: TextStyle(color: Colors.blue),
             ),
             TextField(
+              decoration: InputDecoration(
+                hintText: "TODOを追加"
+              ),
               onChanged: (String value) {
                 setState(() {
                   _text = value;
