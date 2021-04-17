@@ -34,6 +34,7 @@ class _NomalPageState extends State<NomalPage> {
                   _text1 = value;
                 });
               },
+              autofocus: true,
             ),
             RaisedButton(
               child: const Text('追加'),

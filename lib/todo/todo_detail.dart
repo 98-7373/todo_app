@@ -34,6 +34,7 @@ class _TodoDetailState extends State<TodoDetail> {
                   _text = value;
                 });
               },
+              autofocus: true,
             ),
             RaisedButton(
               child: const Text('追加'),
