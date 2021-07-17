@@ -1,16 +1,18 @@
+
 # todo_app
+ガチDO
 
-A new Flutter application.
+## 開発の進め方
+GitHub Flowに沿って開発を行う  
+参考（https://tracpath.com/bootcamp/learning_git_github_flow.html)  
+[サロンの限定動画(レクチャーの方)](https://vimeo.com/showcase/7431597/video/441969458)にGitHubの使い方があるので、そちらを一度見ておくと分かりやすいと思います。  
 
-## Getting Started
+- mainブランチからfeatureを開始する。
+- ブランチの名前はfeature/#(issue番号)_わかりやすい名前
+- featureブランチからmainブランチへは直接マージせず、プルリクエストを行う
+- プルリクエストは誰かがレビューし、マージする
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Issueの立て方
+New Issueをクリックすると5つのテンプレートがあります
+それぞれ使い方や例が書いてあるのでそれにならって記載してください。  
+質問などもIssueで立てていただけるとありがたいです  
